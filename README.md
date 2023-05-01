@@ -21,8 +21,8 @@ To change the fruit family name, modify the `fruitFamily` variable in the `Main`
 
 This application implements the following endpoints:
 
-- `GET /api/fruit`: Returns a list of all fruits.
-- `POST /api/fruit/family/:family`: Returns a list of all fruits belonging to a fruit family.
+- `GET api/FruityViceApp`: Returns a list of all fruits.
+- `POST api/FruityViceApp/family?family`: Returns a list of all fruits belonging to a fruit family.
 
 ## Error Handling
 
