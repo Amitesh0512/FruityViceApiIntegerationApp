@@ -6,7 +6,7 @@ This is a simple C# console application that integrates with the Fruityvice API 
 
 To get started with this application, you'll need to have [.NET Core](https://dotnet.microsoft.com/download) installed on your machine.
 
-1. Clone this repository to your local machine using `git clone https://github.com/your-username/fruityvice-api-integration.git`.
+1. Clone this repository to your local machine using `git clone https://github.com/Amitesh0512/FruityViceApiIntegerationApp.git`.
 2. Open the solution file `FruityviceApiIntegration.sln` in your preferred IDE (e.g. Visual Studio or VS Code).
 3. Build the solution to restore any necessary packages and compile the application.
 4. Run the application using the debugger or from the command line.
