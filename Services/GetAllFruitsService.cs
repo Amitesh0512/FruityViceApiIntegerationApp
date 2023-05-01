@@ -1,6 +1,7 @@
 ﻿using FruityViceApiIntegerationApp.Exceptions;
 using FruityViceApiIntegerationApp.Interfaces;
 using FruityViceApiIntegerationApp.Models.ResponseModels;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -12,6 +13,8 @@ namespace FruityViceApiIntegerationApp.Services
 
         public async Task<AllFruitsResponse> GetAllFruitsAsync()
         {
+            AllFruitsResponse allFruitsResponse = new AllFruitsResponse();
+
             try
             {
                 var response = await _httpClient.GetAsync("https://www.fruityvice.com/api/fruit/all");
@@ -23,15 +26,14 @@ namespace FruityViceApiIntegerationApp.Services
 
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var fruits = JsonSerializer.Deserialize<AllFruitsResponse>(responseBody);
-                fruits.StatusCode = response.StatusCode;
-                return fruits;
+                var fruits = JsonSerializer.Deserialize<List<GetAllFruitsResponse>>(responseBody);
+                allFruitsResponse.Message = "SUCCESS";
+                allFruitsResponse.getAllFruits = fruits;
+                return allFruitsResponse;
             }
             catch (FruityViceApiException ex)
             {
-                AllFruitsResponse allFruitsResponse = new AllFruitsResponse();
-                allFruitsResponse.StatusCode = ex.StatusCode;
-                allFruitsResponse.getAllFruits = null;
+                allFruitsResponse.Message = $"Error:{ex.Message}";
                 return allFruitsResponse;
             }
             

@@ -14,16 +14,16 @@ namespace FruityViceApiIntegerationApp.Models.ResponseModels
 
     public class NutritionsBody
     {
-        public int carbohydrates { get; set; }
-        public int protein { get; set; }
-        public int fat { get; set; }
-        public int calories { get; set; }
-        public int sugar { get; set; }
+        public double carbohydrates { get; set; }
+        public double protein { get; set; }
+        public double fat { get; set; }
+        public double calories { get; set; }
+        public double sugar { get; set; }
     }
 
     public class AllFruitsResponse
     {
-        public HttpStatusCode StatusCode { get; set; }
+        public string Message { get; set; }
         public List<GetAllFruitsResponse> getAllFruits { get; set; }
     }
 }

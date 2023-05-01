@@ -36,7 +36,7 @@ namespace FruityViceApiIntegerationApp.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("/family")]
         public async Task<ActionResult<GetFruitsByGenusFinalResponse>> GetFruitsByGenus(string family)
         {
             try

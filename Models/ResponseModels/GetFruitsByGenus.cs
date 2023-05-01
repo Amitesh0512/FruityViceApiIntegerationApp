@@ -14,7 +14,7 @@ namespace FruityViceApiIntegerationApp.Models.ResponseModels
 
     public class GetFruitsByGenusFinalResponse
     {
-        public HttpStatusCode StatusCode { get; set; }
+        public string message { get; set; }
         public List<GetFruitsByGenus> getFruitsByGenus { get; set; }
     }
 }

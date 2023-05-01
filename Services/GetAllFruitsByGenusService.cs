@@ -9,19 +9,19 @@ namespace FruityViceApiIntegerationApp.Services
 {
     public class GetAllFruitsByGenusService: IGetFruitsByGenus
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
         public async Task<GetFruitsByGenusFinalResponse> GetFruitsByFamilyAsync(string familyName)
         {
+            GetFruitsByGenusFinalResponse fruitsByGenusFinalResponse = new GetFruitsByGenusFinalResponse();
+
+            using var httpClient = new HttpClient();
+
+            httpClient.BaseAddress = new Uri("https://www.fruityvice.com");
+
             try
             {
-                var request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Post,
-                    RequestUri = new Uri("https://www.fruityvice.com/api/fruit/family"),
-                    Content = new StringContent($"{{\"fruitFamily\": \"{familyName}\"}}", Encoding.UTF8, "application/json")
-                };
+                var response = await httpClient.PostAsync($"/api/fruit/family/{familyName}", null);
 
-                var response = await _httpClient.SendAsync(request);
+                response.EnsureSuccessStatusCode();
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -30,14 +30,16 @@ namespace FruityViceApiIntegerationApp.Services
 
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var fruits = JsonSerializer.Deserialize<GetFruitsByGenusFinalResponse>(responseBody);
-                fruits.StatusCode = response.StatusCode;
-                return fruits;
+                var fruits = JsonSerializer.Deserialize<List<GetFruitsByGenus>>(responseBody);
+
+                fruitsByGenusFinalResponse.message = "SUCCESS";
+                fruitsByGenusFinalResponse.getFruitsByGenus = fruits;
+
+                return fruitsByGenusFinalResponse;
             }catch (FruityViceApiException ex)
             {
-                GetFruitsByGenusFinalResponse ExceptionResponse = new GetFruitsByGenusFinalResponse();
-                ExceptionResponse.StatusCode = ex.StatusCode;
-                return ExceptionResponse;
+                fruitsByGenusFinalResponse.message = $"ERROR:{ex.Message}";
+                return fruitsByGenusFinalResponse;
             }
         }
     }
